@@ -1,7 +1,12 @@
 #!/usr/bin/python3
-import sys
-from os import system, name
+from sys import exit
+import os
+from utils import clear
 from sqlite3 import connect, ProgrammingError
+
+if not os.path.exists('certificates.db'):
+    with open('certificates.db', 'w'):
+        pass
 
 try:
     conn = connect('certificates.db')
@@ -55,34 +60,6 @@ def add():
         print()
 
 
-def edit():
-    idc = input('What id do you want to update? ')
-    institution = input('Institution: ')
-    description = input('Description: ')
-    hours_quantity = input('Quantity of hours: (00.00)')
-    completion_date = input('Date of completion (yyyy-mm-dd): ')
-
-    bind = (institution, description, hours_quantity, completion_date, idc)
-
-    sql = """
-    UPDATE certificates SET
-        institution = ?, description = ?
-        , hours_quantity = ?, completion_date = ?
-    WHERE id = ?
-    """
-    try:
-        cursor.execute(sql, bind)
-        conn.commit()
-    except ProgrammingError as e:
-        print(f'Error: {e.msg}')
-        conn.rollback()
-    else:
-        print(67 * '=')
-        print('Updated')
-        print(67 * '=')
-        print()
-
-
 def delete():
     idc = input('What id do you want to delete? ')
     sql = 'DELETE FROM certificates WHERE id = ?'
@@ -112,36 +89,34 @@ def list_all():
     else:
         print(f'{qt} registry')
 
-        sql = 'SELECT * FROM certificates'
+        sql = """
+            SELECT institution, description, hours_quantity, completion_date 
+            FROM certificates
+            ORDER BY completion_date DESC
+            """
         try:
             cursor.execute(sql)
         except ProgrammingError as e:
             print(f'Error: {e.msg}')
         else:
-            columns = ['#', 'Name', 'Description', 'Hours', 'Date']
-            print('|{:<3}|{:<25}|{:<25}|{:<5}|{:<10}|'.format(*columns))
-            print('|:--|:', 22*'-', '|:', 22 *
-                  '-', '|:', 2*'-', '|:', 7*'-', '|')
+            columns = ['Name', 'Description', 'Hours', 'Date']
+            print('|{:<20}|{:<60}|{:<5}|{:<10}|'.format(*columns))
+            print('|:{}|:{}|:{}|:{}|'.format(19*'-', 59*'-', 4*'-', 9*'-'))
             for result in cursor.fetchall():
-                print('|{:<3}|{:<25}|{:<25}|{:<5}|{:<10}|'.format(*result))
+                print('|{:<20}|{:<60}|{:<5}|{:<10}|'.format(*result))
             print('\n\n')
 
 
-def clear():
-    # for windows
-    if name == 'nt':
-        _ = system('cls')
-    # for mac and linux(here, os.name is 'posix')
-    else:
-        _ = system('clear')
+def report():
+    pass
 
 
 def print_menu():
     print(10 * '-', 'Certificate Management', 10 * '-')
     print('1. Add')
-    print('2. Edit')
-    print('3. Delete')
-    print('4. List')
+    print('2. List')
+    print('3. Report')
+    print('4. Delete')
     print('5. Exit')
     print(67 * '-')
 
@@ -155,17 +130,17 @@ def main():
             add()
         elif choice == 2:
             clear()
-            edit()
+            list_all()
         elif choice == 3:
             clear()
-            delete()
+            report()
         elif choice == 4:
             clear()
-            list_all()
+            delete()
         elif choice == 5:
             print("Exit")
             conn.close()
-            sys.exit(1)
+            exit(1)
             break
         else:
             clear()
