@@ -10,6 +10,7 @@ from delete import delete
 from list_all import list_all
 from menu import print_menu
 from report import report
+from update_readme import update
 
 if not os.path.exists('certificates.db'):
     with open('certificates.db', 'w'):
@@ -20,14 +21,13 @@ try:
 except ProgrammingError as e:
     print(f'Error: {e.msg}')
 else:
-    print('Connected')
     cursor = conn.cursor()
 
 
 def main():
     while True:
         print_menu()
-        choice = int(input("Enter your choice [1-5]:"))
+        choice = int(input("Enter your choice [1-6]:"))
         if choice == 1:
             clear()
             add()
@@ -39,8 +39,11 @@ def main():
             report()
         elif choice == 4:
             clear()
-            delete()
+            update()
         elif choice == 5:
+            clear()
+            delete()
+        elif choice == 6:
             print("Exit")
             conn.close()
             exit(1)
