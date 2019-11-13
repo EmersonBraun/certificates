@@ -1,7 +1,9 @@
 # List of certificates
-## Updated: 2019-11-08
+## Updated: 2019-11-13
 |Name                |Description                                                 |Hours|Date      |
 |:-------------------|:-----------------------------------------------------------|:----|:---------|
+|Udemy               |Curso banco de dados MySQL                                  |4.5  |2019-11-13|
+|Udemy               |Banco de dados MySQL                                        |4.5  |2019-11-13|
 |Udemy               |Python 3                                                    |25.5 |2019-11-06|
 |Udemy               |Curso de Shell Script                                       |4.5  |2019-10-31|
 |Udemy               |Docker                                                      |5.5  |2019-08-22|
