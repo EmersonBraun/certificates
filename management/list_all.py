@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 import os
 from sqlite3 import connect, ProgrammingError
+from db import count_all, get_list
 
 if not os.path.exists('certificates.db'):
     with open('certificates.db', 'w'):
@@ -13,30 +14,6 @@ except ProgrammingError as e:
 else:
     cursor = conn.cursor()
 
-
-def count_all():
-    sql = 'SELECT COUNT(*) FROM certificates '
-    try:
-        cursor.execute(sql)
-    except ProgrammingError as e:
-        print(f'Error: {e.msg}')
-    else:
-        row = cursor.fetchone()
-        return int(row[0])
-
-
-def get_list():
-    sql = """
-        SELECT institution, description, hours_quantity
-        , completion_date FROM certificates
-        ORDER BY completion_date DESC
-        """
-    try:
-        cursor.execute(sql)
-    except ProgrammingError as e:
-        print(f'Error: {e.msg}')
-    else:
-        return cursor.fetchall()
 
 def list_all():
     qt = count_all()

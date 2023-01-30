@@ -7,4 +7,4 @@ def print_menu():
     print('4. Update README')
     print('5. Delete')
     print('6. Exit')
-    print(42 * '-')
+    print(45 * '-')
