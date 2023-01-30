@@ -1,4 +1,7 @@
 # List of certificates
+<a href='https://github.com/shivamkapasia0' target="_blank"><img alt='Conventional Commits' src='https://img.shields.io/badge/Conventional_Commits-100000?style=for-the-badge&logo=Conventional Commits&logoColor=white&labelColor=black&color=black'/></a>
+<a href='https://github.com/shivamkapasia0' target="_blank"><img alt='Python' src='https://img.shields.io/badge/Python-100000?style=for-the-badge&logo=Python&logoColor=white&labelColor=black&color=black'/></a>
+<a href='https://github.com/shivamkapasia0' target="_blank"><img alt='sqlite' src='https://img.shields.io/badge/SQLite-100000?style=for-the-badge&logo=sqlite&logoColor=white&labelColor=black&color=black'/></a>
 ## Updated: 2019-11-13
 |Name                |Description                                                 |Hours|Date      |
 |:-------------------|:-----------------------------------------------------------|:----|:---------|
