@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 from datetime import date
-from list_all import get_list
+from db import get_list
 
 def update():
     print("Create or update README.MD")

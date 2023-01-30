@@ -54,5 +54,8 @@ def main():
 
 
 if __name__ == '__main__':
-    create_table()
-    main()
+    try:
+        create_table()
+        main()
+    except (KeyboardInterrupt):
+        print("\nProgram interrupted by user. Exiting...")

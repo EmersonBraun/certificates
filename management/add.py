@@ -1,41 +1,26 @@
 #!/usr/bin/python3
 import os
-from sqlite3 import connect, ProgrammingError
+from sqlite3 import ProgrammingError
+from validate_field import validate_field
+from db import insert
 
 if not os.path.exists('certificates.db'):
     with open('certificates.db', 'w'):
         pass
 
-try:
-    conn = connect('certificates.db')
-except ProgrammingError as e:
-    print(f'Error: {e.msg}')
-else:
-    print('Connected')
-    cursor = conn.cursor()
-
-
 def add():
-    institution = input('Institution: ')
-    description = input('Description: ')
-    hours_quantity = input('Quantity of hours: (00.00)')
-    completion_date = input('Date of completion (yyyy-mm-dd): ')
+    institution = validate_field('Institution: ')
+    description = validate_field('Description: ')
+    hours_quantity = validate_field('Hours quantity: ')
+    completion_date = validate_field('Completion date: ')
 
-    bind = (institution, description, hours_quantity, completion_date)
-
-    sql = """
-        INSERT INTO certificates
-            (institution, description, hours_quantity, completion_date)
-        VALUES (?, ?, ?, ?)
-    """
     try:
-        cursor.execute(sql, bind)
-        conn.commit()
+        lastrowid = insert(institution, description, hours_quantity, completion_date)
+        if lastrowid:
+            print(67 * '=')
+            print(f'ID {lastrowid} inserted')
+            print(67 * '=')
+            print()
     except ProgrammingError as e:
         print(f'Error: {e.msg}')
-        conn.rollback()
-    else:
-        print(67 * '=')
-        print(f'ID {cursor.lastrowid} inserted')
-        print(67 * '=')
-        print()
+
